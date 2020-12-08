@@ -1,10 +1,10 @@
 {
   "name": "pug-stylekit-webpack-plugin",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "webpack"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,8 @@
     "pug-parser": "^6.0.0",
     "sass": "^1.30.0",
     "webpack": "^5.10.0"
+  },
+  "devDependencies": {
+    "webpack-cli": "^4.2.0"
   }
 }

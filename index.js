@@ -5,7 +5,6 @@ const pug = require('pug');
 const fs = require('fs');
 const pugLexer = require('pug-lexer');
 const pugParser = require('pug-parser');
-const pugCodeGen = require('pug-code-gen');
 const sass = require('sass')
 
 
@@ -51,9 +50,7 @@ class PugStyleKitWebpackPlugin {
         const context = compilation.compiler.context;
         const outputPath = compilation.compiler.outputPath;
         const options = this.options;
-        let targets = [];
-
-        if(!Array.isArray(options)) targets = [options.target];
+        const targets = Array.isArray(options.target) ? options.target : [options.target];
 
         targets.forEach(config => {
 
