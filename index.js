@@ -56,7 +56,7 @@ class PugStyleKitWebpackPlugin {
 
           const inputFile = config.from;
           const outputFile = (typeof config.to == 'string') ?
-            {html: config.to} : {html: config.to.html, css: config.to.css};
+            {html: config.to, css: ''} : {html: config.to.html, css: config.to.css};
 
           const pugReadBuffer = fs.readFileSync(inputFile, 'utf8');
           const filename = path.basename(inputFile);
@@ -65,8 +65,7 @@ class PugStyleKitWebpackPlugin {
           const ast = this._parseFile(inputFile);
 
           const styleKitBlocks = this._findStyleKitComments(ast);
-          if(styleKitBlocks.length > 0) {
-
+          if(styleKitBlocks.length > 0 && outputFile.css != '') {
             const resultSass = this._createScss(styleKitBlocks);
             const distPath = path.relative(outputPath, outputFile.css);
             compilation.emitAsset(distPath, new RawSource(resultSass.css.toString()));
