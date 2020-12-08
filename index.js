@@ -10,27 +10,29 @@ const sass = require('sass')
 
 
 const schema = {
-  anyOf: [
-    { type: 'array' },
-    {
-      type: 'object',
-      propaties: {
-        from: { type: 'string' },
-        to: {
-          anyOf: [
-            {
-              type: 'object',
-              propaties: {
-                html: { type: 'string' },
-                css: { type: 'string' },
+  target: {
+    anyOf: [
+      { type: 'array' },
+      {
+        type: 'object',
+        propaties: {
+          from: { type: 'string' },
+          to: {
+            anyOf: [
+              {
+                type: 'object',
+                propaties: {
+                  html: { type: 'string' },
+                  css: { type: 'string' },
+                },
               },
-            },
-            { type: 'string' }
-          ]
+              { type: 'string' }
+            ]
+          },
         },
-      },
-    }
-  ]
+      }
+    ]
+  }
 };
 
 const PLUGIN_NAME = 'PugStyleKitWebpackPlugin';
