@@ -2,6 +2,8 @@
 
 A plugin that integrates pug files and scss files to improve coding efficiency.
 
+npm : https://www.npmjs.com/package/pug-stylekit-webpack-plugin
+
 ## Installation
 ```
 npm install pug-stylekit-webpack-plugin
