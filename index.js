@@ -50,11 +50,12 @@ class PugStyleKitWebpackPlugin {
 
         const context = compilation.compiler.context;
         const outputPath = compilation.compiler.outputPath;
-        let options = this.options;
+        const options = this.options;
+        let targets = [];
 
-        if(!Array.isArray(options)) options = [options];
+        if(!Array.isArray(options)) targets = [options.target];
 
-        options.forEach(config => {
+        targets.forEach(config => {
 
           const inputFile = config.from;
           const outputFile = (typeof config.to == 'string') ?
