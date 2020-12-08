@@ -34,8 +34,8 @@ const schema = {
   }
 };
 
-const PLUGIN_NAME = 'PugStyleKitWebpackPlugin';
-class PugStyleKitWebpackPlugin {
+const PLUGIN_NAME = 'PugStylekitWebpackPlugin';
+class PugStylekitWebpackPlugin {
 
   constructor(options = {}){
     schemaUnits.validate(schema, options, { name: PLUGIN_NAME });
@@ -133,4 +133,4 @@ class PugStyleKitWebpackPlugin {
   }
 }
 
-module.exports = PugStyleKitWebpackPlugin;
+module.exports = PugStylekitWebpackPlugin;
