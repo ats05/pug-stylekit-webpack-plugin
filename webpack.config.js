@@ -3,7 +3,6 @@ const path = require('path');
 const SOURCE_DIR = path.resolve(__dirname, 'test/src');
 const OUTPUT_DIR = path.resolve(__dirname, 'test/dist');
 
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const PugStylekitWebpackPlugin = require('./index');
 
 module.exports = {

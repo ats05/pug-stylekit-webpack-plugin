@@ -45,7 +45,11 @@ class PugStylekitWebpackPlugin {
   apply(compiler) {
 
     compiler.hooks.compilation.tap(PLUGIN_NAME, compilation => {
-      compilation.hooks.processAssets.tapPromise(PLUGIN_NAME, async () => {
+      compilation.hooks.processAssets.tap(
+        {
+          name: PLUGIN_NAME,
+          stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONS,
+        }, (assets) => {
 
         const context = compilation.compiler.context;
         const outputPath = compilation.compiler.outputPath;
@@ -61,12 +65,11 @@ class PugStylekitWebpackPlugin {
           const pugReadBuffer = fs.readFileSync(inputFile, 'utf8');
           const filename = path.basename(inputFile);
 
-          const tokens = pugLexer(pugReadBuffer, {filename});
           const ast = this._parseFile(inputFile);
 
           const styleKitBlocks = this._findStyleKitComments(ast);
           if(styleKitBlocks.length > 0 && outputFile.css != '') {
-            const resultSass = this._createScss(styleKitBlocks);
+            const resultSass = this._createScss(styleKitBlocks, path.dirname(inputFile));
             const distPath = path.relative(outputPath, outputFile.css);
             compilation.emitAsset(distPath, new RawSource(resultSass.css.toString()));
           }
@@ -84,17 +87,20 @@ class PugStylekitWebpackPlugin {
     });
   }
 
-  _createScss(blocks) {
+  _createScss(blocks, additionalPath = []) {
     let sassBuffer = '';
     blocks.forEach((element) => {
       element.block.nodes.forEach((node) => {
         sassBuffer += node.val;
       });
     });
-    // TODO Async
+
+    const defaultPath = [];
+    const includePath = defaultPath.concat(additionalPath);
+
     return sass.renderSync({
       data: sassBuffer,
-      // includePaths: [],
+      includePaths: includePath,
       outputStyle: "expanded", // or "compressed"
     });
   }
